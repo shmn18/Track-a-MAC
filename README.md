@@ -5,10 +5,10 @@ identify the connection port.
 
 This project consists of following files.
 
-addDevice.php
-removeDevice.php
-search.php
-list.php
-listDevs.php
-config.php
-backend.txt
+1. addDevice.php
+2. removeDevice.php
+3. search.php
+4. list.php
+5. listDevs.php
+6. config.php
+7. backend.txt
