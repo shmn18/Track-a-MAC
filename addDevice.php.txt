@@ -1,0 +1,47 @@
+<?php
+include('config.php');
+
+try
+{
+$database_file->exec("create a table ("id" INTERGER NOT NULL PRIMARY KEY AUTOINCREMENT,  "ip" TEXT, "port" INTEGER, "community" TEXT, "version" TEXT, "firstprobe" TEXT, "latestprobe" TEXT, "fail' INTEGER)");
+}
+
+catch(PDOException $e) 
+{
+    echo $e->messagerecv();
+}
+
+$ip = $_GET['ip'];
+$port = $_GET['port'];
+$community = $_GET['community'];
+$version = $_GET['version'];
+
+if(empty($ip) || empty($port)||empty($community) || empty($version)) 
+{
+echo "Error";
+} 
+
+else 
+
+{
+	$result = $database_file->query('select * from listdevs');
+	$count = 0;
+	
+	foreach ($result as $result)
+	{
+		if($result['ip']==$ip && $result['port']==$port && $result['community']==$community && $result['version']==$version)
+		{
+			$count = $count+1;
+		}
+	}
+
+	if ($count ==0)
+	{
+	
+		$database_file->exec("INSERT INTO data (ip, port, community, version) VALUES ('$ip','$port','$community','$version')");
+		echo "OK";
+	}
+
+$database_file->close();
+
+?>
