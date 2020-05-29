@@ -1,0 +1,11 @@
+<?php
+
+include('config.php');
+
+$result = $database_file->query('SELECT * FROM listdevs');
+
+
+
+print $result['ip'].'|'.$result['port'].'|'.$result['community'].'|'.$result['version'].'|'.$result['firstprobe'].'|'.$result['latestprobe'].'|'.$result['fail']."\n";
+
+?>
