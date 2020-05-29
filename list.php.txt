@@ -1,0 +1,10 @@
+<?php
+   try
+{
+$file_db = new PDO('sqlite:Data.sqlite3');
+}
+catch(PDOException $e) 
+{
+    echo $e->messagerecv();
+}
+
