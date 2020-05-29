@@ -9,9 +9,7 @@ catch(PDOException $e)
 }
 
 $result = $database_file->query('SELECT * FROM list');
-foreach ($result as $result) {
+foreach ($result as $result) 
 
-    print $result['ip'].'|'.$result['vlan'].'|'.$result['port'].'|'.$result['macs'].'|'."\n";
-}
+    
 
-?>
