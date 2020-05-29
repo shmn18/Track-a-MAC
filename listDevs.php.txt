@@ -4,7 +4,15 @@ include('config.php');
 
 $result = $database_file->query('SELECT * FROM listdevs');
 
+try
+{
+$database_file->exec("CREATE TABLE IF NOT EXISTS listdevs (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,ip TEXT,port INTEGER,community TEXT,version TEXT,firstprobe TEXT,latestprobe TEXT,fail INTEGER)");
+}
 
+catch(PDOException $e) 
+{
+    echo $e->messagerecv();
+}
 
 print $result['ip'].'|'.$result['port'].'|'.$result['community'].'|'.$result['version'].'|'.$result['firstprobe'].'|'.$result['latestprobe'].'|'.$result['fail']."\n";
 
