@@ -16,5 +16,3 @@ foreach ($result as $result)
 {
 print $result['ip'].'|'.$result['port'].'|'.$result['community'].'|'.$result['version'].'|'.$result['firstprobe'].'|'.$result['latestprobe'].'|'.$result['fail']."\n";
 }
-
-?>
