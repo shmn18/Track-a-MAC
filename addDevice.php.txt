@@ -1,10 +1,9 @@
 <?php
 include('config.php');
 
-try
-{
-$database_file->exec("create a table listdevs ("id" INTERGER NOT NULL PRIMARY KEY AUTOINCREMENT,  "ip" TEXT, "port" INTEGER, "community" TEXT, "version" TEXT, "firstprobe" TEXT, "latestprobe" TEXT, "fail' INTEGER)");
-}
+try {
+$database_file->exec("CREATE A TABLE IF NOT EXISTS listdevs ("id" INTERGER NOT NULL PRIMARY KEY AUTOINCREMENT,  "ip" TEXT, "port" INTEGER, "community" TEXT, "version" TEXT, "firstprobe" TEXT, "latestprobe" TEXT, "fail' INTEGER)"); }
+
 
 catch(PDOException $e) {
 
@@ -24,7 +23,7 @@ echo "Error";
 else 
 
 {
-	$result = $database_file->query('select * from listdevs');
+	$result = $database_file->query('SELECT * FROM listdevs');
 	$count = 0;
 	
 	foreach ($result as $result)
@@ -41,6 +40,7 @@ else
 		$database_file->exec("INSERT INTO listdevs (ip, port, community, version) VALUES ('$ip','$port','$community','$version')");
 		echo "OK";
 	}
+}
 
 $database_file = null;
 
