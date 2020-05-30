@@ -1,9 +1,8 @@
 <?php
 include('config.php');
 
-try
-{
-$database_file->exec("create a table listdevs ("id" INTERGER NOT NULL PRIMARY KEY AUTOINCREMENT,  "ip" TEXT, "port" INTEGER, "community" TEXT, "version" TEXT, "firstprobe" TEXT, "latestprobe" TEXT, "fail' INTEGER)");
+try {
+	$database_file->exec("create a table listdevs ("id" INTERGER NOT NULL PRIMARY KEY AUTOINCREMENT,  "ip" TEXT, "port" INTEGER, "community" TEXT, "version" TEXT, "firstprobe" TEXT, "latestprobe" TEXT, "fail' INTEGER)");
 }
 
 catch(PDOException $e) 
