@@ -2,7 +2,7 @@
 include('config.php');
 
 try {
-$database_file->exec("CREATE A TABLE IF NOT EXISTS listdevs ("id" INTERGER NOT NULL PRIMARY KEY AUTOINCREMENT,  "ip" TEXT, "port" INTEGER, "community" TEXT, "version" TEXT, "firstprobe" TEXT, "latestprobe" TEXT, "fail' INTEGER)"); }
+$database_file->exec("CREATE A TABLE IF NOT EXISTS listdevs ("id" INTERGER NOT NULL PRIMARY KEY AUTOINCREMENT,  "ip" TEXT, "port" INTEGER, "community" TEXT, "version" TEXT, "firstprobe" TEXT, "latestprobe" TEXT, "fail" INTEGER)"); }
 
 
 catch(PDOException $e) {
