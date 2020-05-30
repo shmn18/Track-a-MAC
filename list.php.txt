@@ -1,18 +1,13 @@
 <?php
-   try
-{
-$file_db = new PDO('sqlite:Data.sqlite3');
-}
-catch(PDOException $e) 
-{
-    echo $e->messagerecv();
-}
 
-$result = $database_file->query('SELECT * FROM list');
-foreach ($result as $result) {
+include('config.php');
 
-    print $result['ip'].'|'.$result['vlan'].'|'.$result['port'].'|'.$result['macs'].'|'."\n";
+$result = $database_file->query('SELECT * FROM List');
+
+while($row = $result->fetchArray(SQLITE3_ASSOC) ) {
+	echo  $row['IP']. "|" .$row['VLANs']. "|" .$row['PORT']. "|" .$row['MACS']. "\n";
 }
+$database_file->close();
 
 ?>
 
