@@ -1,8 +1,6 @@
 <?php
 
-include('config.php');
-
-$result = $database_file->query('SELECT * FROM listdevs');
+include_once('config.php');
 
 try
 {
@@ -13,7 +11,10 @@ catch(PDOException $e)
 {
     echo $e->messagerecv();
 }
-
+$result = $database_file->query('SELECT * FROM listdevs');
+foreach ($result as $result) 
+{
 print $result['ip'].'|'.$result['port'].'|'.$result['community'].'|'.$result['version'].'|'.$result['firstprobe'].'|'.$result['latestprobe'].'|'.$result['fail']."\n";
+}
 
 ?>
