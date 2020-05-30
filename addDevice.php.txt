@@ -42,6 +42,6 @@ else
 		echo "OK";
 	}
 
-$database_file->close();
+$database_file = null;
 
 ?>
