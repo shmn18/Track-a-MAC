@@ -3,7 +3,7 @@ include('config.php');
 
 $mac = $_GET['mac'];
 $macw = str_replace('*','%',$mac);
-$result = $file_db->query("SELECT * FROM list where macs LIKE '%$macw%'");
+$result = $database_file->query("SELECT * FROM list where macs LIKE '%$macw%'");
 $array = array();
 foreach ($result as $result) {
 		$out = $result['ip'].'|'.$result['vlan'].'|'.$result['port'].'|'.$result['macs'];
@@ -15,7 +15,7 @@ foreach ($result as $result) {
 		}
 }
 if(empty($array)){
-	$res = $file_db->query("SELECT * FROM listdevs");
+	$res = $database_file->query("SELECT * FROM listdevs");
 	$count = 0;
 	foreach ($res as $res) {
 		$count = $count+1;
