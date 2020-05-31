@@ -1,15 +1,6 @@
 <?php
 include('config.php');
 
-try {
-	$database_file->exec("create a table listdevs ("id" INTERGER NOT NULL PRIMARY KEY AUTOINCREMENT,  "ip" TEXT, "port" INTEGER, "community" TEXT, "version" TEXT, "firstprobe" TEXT, "latestprobe" TEXT, "fail' INTEGER)");
-}
-
-catch(PDOException $e) 
-{
-    echo $e->messagerecv();
-}
-
 $ip = $_GET['ip'];
 $port = $_GET['port'];
 $community = $_GET['community'];
@@ -20,12 +11,10 @@ if(empty($ip) || empty($port)||empty($community) || empty($version))
 	echo "Error";
 } 
 
-else 
+else{
+	$rmdev = $db->exec("DELETE FROM listdevs WHERE ip='$ip' AND port='$port'AND community='$community' AND version='$version'");
 
-{
-	$i = $database_file->exec("DELETE FROM listdevs WHERE ip='$ip' AND port='$port'AND community='$community' AND version='$version'");
-
-	if(!$i)
+	if(!$rmdev)
 	{
 		echo "fail";
 	}
@@ -35,7 +24,7 @@ else
 	}
 }
 
-$database_file->close();
+$db->close();
 
 ?>
 
