@@ -1,31 +1,39 @@
 <?php
-include('config.php');
+include ('config.php');
 
 $mac = $_GET['mac'];
-$macw = str_replace('*','%',$mac);
-$result = $database_file->query("SELECT * FROM list where macs LIKE '%$macw%'");
+$macw = str_replace('*', '%', $mac);
+$result = $db->query("SELECT * FROM list where macs LIKE '%$macw%'");
 $array = array();
-foreach ($result as $result) {
-		$out = $result['ip'].'|'.$result['vlan'].'|'.$result['port'].'|'.$result['macs'];
-		if (in_array($out, $array)){
-			
-		}
-		else{
-			array_push($array, $out);
-		}
+foreach ($result as $result)
+{
+    $out = $result['ip'] . '|' . $result['vlan'] . '|' . $result['port'] . '|' . $result['macs'];
+    if (in_array($out, $array))
+    {
+
+    }
+    else
+    {
+        array_push($array, $out);
+    }
 }
-if(empty($array)){
-	$res = $database_file->query("SELECT * FROM listdevs");
-	$count = 0;
-	foreach ($res as $res) {
-		$count = $count+1;
-	}
-	print "No match in $count devices.";
+if (empty($array))
+{
+    $pro = $db->query("SELECT * FROM listdevs");
+    $count = 0;
+    foreach ($pro as $pro)
+    {
+        $count = $count + 1;
+    }
+    print "No match in $count devices.";
 }
-else{
-foreach ($array as $element) {
-	print $element."\n";
-}
+else
+{
+    foreach ($array as $element)
+    {
+        print $element . "\n";
+    }
 }
 ?>
+
 
