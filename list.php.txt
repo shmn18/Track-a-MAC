@@ -1,15 +1,10 @@
 <?php
+include ('config.php');
 
-include('config.php');
-
-$result = $database_file->query('SELECT * FROM List');
-
-while($row = $result->fetchArray(SQLITE3_ASSOC) ) {
-	echo  $row['IP']. "|" .$row['VLANs']. "|" .$row['PORT']. "|" .$row['MACS']. "\n";
+$result = $db->query('SELECT * FROM list');
+foreach ($result as $result)
+{
+    print $result['ip'] . '|' . $result['vlan'] . '|' . $result['port'] . '|' . $result['macs'] . '|' . "\n";
 }
-$database_file->close();
-
+$db->close();
 ?>
-
-    
-
