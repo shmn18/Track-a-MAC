@@ -1,19 +1,10 @@
 <?php
+include_once ('config.php');
 
-include_once('config.php');
-
-try
+$result = $db->query('SELECT * FROM listdevs');
+foreach ($result as $result)
 {
-$database_file->exec("CREATE TABLE IF NOT EXISTS listdevs (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,ip TEXT,port INTEGER,community TEXT,version TEXT,firstprobe TEXT,latestprobe TEXT,fail INTEGER)");
+    print $result['ip'] . '|' . $result['port'] . '|' . $result['community'] . '|' . $result['version'] . '|' . $result['firstprobe'] . '|' . $result['latestprobe'] . '|' . $result['fail'] . "\n";
 }
-
-catch(PDOException $e) 
-{
-    echo $e->messagerecv();
-}
-$result = $database_file->query('SELECT * FROM listdevs');
-foreach ($result as $result) 
-{
-print $result['ip'].'|'.$result['port'].'|'.$result['community'].'|'.$result['version'].'|'.$result['firstprobe'].'|'.$result['latestprobe'].'|'.$result['fail']."\n";
-}
+$db->close();
 ?>
