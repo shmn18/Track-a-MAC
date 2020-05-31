@@ -30,6 +30,6 @@ else{
 	    }
 }
 
-$db->close();
+$db = null;
 
 ?>
