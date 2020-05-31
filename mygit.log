@@ -1,0 +1,281 @@
+commit 6c1aa4703ad4489a29a7234842726c97bc10acad 
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Sun May 31 14:46:10 2020 +0200
+
+    backend draft works
+
+commit b2823b240567007afd5e19c98e5eac90c3449695
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Sun May 31 14:44:49 2020 +0200
+
+    add Device works
+
+commit 7afa7baeb049689918e1e60f4939b8c6685084be
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Sun May 31 14:43:18 2020 +0200
+
+    creates database
+
+commit 4b136d241cb11200306d5ee62b38559d0494d560
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Sun May 31 14:37:38 2020 +0200
+
+    final commit
+
+commit 2e8caa493beb4067fb95ebcf7930f55e789c1409
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Sun May 31 14:35:52 2020 +0200
+
+commit b2823b240567007afd5e19c98e5eac90c3449695
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Sun May 31 14:44:49 2020 +0200
+
+    add Device works
+
+commit 7afa7baeb049689918e1e60f4939b8c6685084be
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Sun May 31 14:43:18 2020 +0200
+
+    creates database
+
+commit 4b136d241cb11200306d5ee62b38559d0494d560
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Sun May 31 14:37:38 2020 +0200
+
+    final commit
+
+commit 2e8caa493beb4067fb95ebcf7930f55e789c1409
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Sun May 31 14:35:52 2020 +0200
+
+    output display
+
+commit b2823b240567007afd5e19c98e5eac90c3449695
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Sun May 31 14:44:49 2020 +0200
+
+    add Device works
+
+commit 7afa7baeb049689918e1e60f4939b8c6685084be
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Sun May 31 14:43:18 2020 +0200
+
+    creates database
+
+commit 4b136d241cb11200306d5ee62b38559d0494d560
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Sun May 31 14:37:38 2020 +0200
+
+    final commit
+
+commit 2e8caa493beb4067fb95ebcf7930f55e789c1409
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Sun May 31 14:35:52 2020 +0200
+
+    output display
+
+commit 0dda37d5db5aa739f80aa0be14b642d940bf774c
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Sun May 31 14:30:45 2020 +0200
+
+    search the mac address
+
+commit 38712ab9b93718b344d41483c8280771adc283a3
+Merge: 7c659a8 9bdca7a
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Sun May 31 14:27:19 2020 +0200
+
+    removes a device
+
+commit 7c659a8c98b5cb289fbb0523922326d23af57ff5
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Sun May 31 14:26:47 2020 +0200
+
+    removes a device
+
+commit 9bdca7aa02d2d019972a5beb40bf7343475a78b6
+Author: shmn18 <55428899+shmn18@users.noreply.github.com>
+Date:   Sun May 31 14:24:57 2020 +0200
+
+    Update addDevice.php.txt
+
+commit 816018b8dc5cf2a5fa4c7496bcc6c882c5eab5ec
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Sun May 31 14:22:37 2020 +0200
+
+    add Device works
+
+commit 6aaad36d21f05704ba8c8983963b47f0e6f1e3ab
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Sat May 30 14:14:26 2020 +0200
+
+    updated search
+
+commit b48351a893da359d6d2a04d6a3ce540f74ee0e27
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Sat May 30 13:48:18 2020 +0200
+
+    final commit
+
+commit 85d0dda84763ed2e82c4f240f867802b7c8fc172
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Sat May 30 13:28:10 2020 +0200
+
+    final commit
+
+commit 1a70acfc619677ef0de080729f72322e93e9832d
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Sat May 30 13:27:21 2020 +0200
+
+    final commit
+
+commit 5f3d1456091a76a0f96eca9523ae2088cb50db60
+Merge: cbe7013 93db566
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Sat May 30 13:26:01 2020 +0200
+
+    final commit
+
+commit cbe70137c7f29ef223a7041cdbd53c8be4f18491
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Sat May 30 13:23:42 2020 +0200
+
+    final commit
+
+commit 93db566990d0d783115184e292be05c98cbda140
+Author: shmn18 <55428899+shmn18@users.noreply.github.com>
+Date:   Sat May 30 11:51:28 2020 +0200
+
+    Update addDevice.php.txt
+
+commit 6761e218db43c85eae5a47d1711435651d01b8ea
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Sat May 30 11:49:34 2020 +0200
+
+    updated addDevice
+
+commit 46ac6bed5b465d027eb5b7d7da8b54b5c146948f
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Sat May 30 11:44:08 2020 +0200
+
+    updated list
+
+commit d817ab881341d53251ab82404d940816a9004d38
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Sat May 30 11:31:10 2020 +0200
+
+    addDevice works
+
+commit 5d6af9d4cd1306e10ba0c2bd10fc3cb06c079986
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Sat May 30 09:48:43 2020 +0200
+
+    updated
+
+commit 9217b26af55f4498df13dafe8fc1159a3c90b136
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Fri May 29 09:57:21 2020 +0200
+
+    database file
+
+commit 6f02694458863a4149431ea98627517e313b7a0d
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Fri May 29 09:55:36 2020 +0200
+
+    displays the output
+
+commit 6675d0200e3d518ad5182dbb3eddd852290ab6ac
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Fri May 29 09:53:55 2020 +0200
+
+    updated list
+
+commit f0c3cbf770b111f4373d5a1b53c45b97a790063b
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Fri May 29 09:51:09 2020 +0200
+
+    pushing values intlo list.php
+
+commit ef3b4db503d5e7464cd52ad1e25cd49df8a9caa9
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Fri May 29 09:49:07 2020 +0200
+
+    created listdevs
+
+commit bb8046f10ff983a506692d1ebd167c4b1bf72bdf
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Fri May 29 09:42:38 2020 +0200
+
+    pushing values into list
+
+commit b06df716f2c8f75796d94c8ece3025c9341cf36b
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Fri May 29 09:38:08 2020 +0200
+
+    created list
+
+commit 9daf41273ad4a7b0b5021450bb651c8e85e98e58
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Fri May 29 09:34:57 2020 +0200
+
+    updated search
+
+commit 24def209ff6f6684a4a4c50b03b96936b3bc9fc3
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Thu May 28 14:01:11 2020 +0200
+
+    removes a row
+
+commit f8f4edf0cdccaf44e7bd1f43e59337fb0a2931c2
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Thu May 28 13:54:39 2020 +0200
+
+    removeDev added
+
+commit 8504a23fc7b7f9fe4f5d3933a014f60512a909be
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Thu May 28 13:35:09 2020 +0200
+
+    addDevice works
+
+commit c74e42b87f28dffea6574517c5db5c311e2ebdc8
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Thu May 28 13:34:03 2020 +0200
+
+    updated addDevice
+
+commit 6a0d2fd4cb8b96481d8ccae6440df220b22b10b1
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Thu May 28 13:32:42 2020 +0200
+
+    exception added
+
+commit 98ab65fcefb7474db8ed16e831cd8d10295b52aa
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Thu May 28 13:31:01 2020 +0200
+
+    table names added
+
+commit eee1f2620f79769f086974dfdbb93b64a97cefe1
+Author: shanmukha raju Mantena <shmn18@student.bth.se>
+Date:   Thu May 28 11:46:14 2020 +0200
+
+    addDevice created
+
+commit e6fc28a8c8063ffcb27e0d43f2410cbf4d2a277a
+Author: shmn18 <55428899+shmn18@users.noreply.github.com>
+Date:   Sun May 17 11:03:38 2020 +0200
+
+    updated readme
+
+commit 246374549a5e7c5fbdfda6b422b558a876b3b88b
+Author: shmn18 <55428899+shmn18@users.noreply.github.com>
+Date:   Sun May 17 11:02:54 2020 +0200
+
+    updated readme
+
+commit 4e8be58e6311938fdbff17cb06eecaeb3bd6ebb5
+Author: shmn18 <55428899+shmn18@users.noreply.github.com>
+Date:   Sun May 17 11:02:32 2020 +0200
+
+    created readme
