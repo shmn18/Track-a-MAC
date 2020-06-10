@@ -5,15 +5,15 @@ use Time::HiRes qw(sleep gettimeofday);
 use DBI;
 use POSIX;
 
-my $fb, $fb1;
+my $tid, $tid1;
 my $manager = new Parallel::ForkManager( 20 );
 my @devices;
-my $data = "SQLite";
-my $database = "database_file.db";
-my $dn = "DBI:$data:dbname=$database";
+my $driver = "SQLite";
+my $database = "project.sqlite3";
+my $dsn = "DBI:$driver:dbname=$database";
 my $user = "";
 my $passwd = "";
-my $dbh = DBI->connect($dn, $user, $passwd, { RaiseError => 1, Printerror => 0 }) || die $DBI::errstr;
+my $dbh = DBI->connect($dsn, $user, $passwd, { RaiseError => 1 }) || die $DBI::errstr;
 
 while(2<3){
 	my $t1 = time;
@@ -31,10 +31,10 @@ while(2<3){
 
 
 
-	foreach my $dev (@devices) {
+	foreach my $device (@devices) {
 		 
 	      	 $manager->start and next;
-		     my @each = split /:/, $dev;
+		     my @each = split /:/, $device;
 		
 
 		
@@ -46,7 +46,7 @@ while(2<3){
 		    my @hours = split /:/, $date[3];
 			my $h = $hours[0]+2;
 
-			my $required = "$date[0]$date[1]$date[2]-$h:$hours[1]:$hours[2]";
+			my $wanted = "$date[0]$date[1]$date[2]-$h:$hours[1]:$hours[2]";
 			
 			
 			my $stmt = qq(SELECT * from listdevs where ip="$each[0]" AND version="$each[3]";);
@@ -59,8 +59,8 @@ while(2<3){
 			while(my @row = $sth->fetchrow_array()) {
 				if($row[5] eq '') {
 					
-					my $fb = "probef_$required";
-					my $stmt = qq(UPDATE listdevs set firstprobe = "$fb",latestprobe="probel_$required" where ip="$each[0]" AND version="$each[3]";);
+					my $tid = "firstProbe_$wanted";
+					my $stmt = qq(UPDATE listdevs set firstprobe = "$tid",latestprobe="latestProbe_$wanted" where ip="$each[0]" AND version="$each[3]";);
 					my $rv = $dbh->do($stmt) || die $DBI::errstr;
 
 					if( $rv < 0 ) {
@@ -68,8 +68,8 @@ while(2<3){
 					} 
 			}
 				else{
-					my $fb1 = "probel_$required";
-					my $stmt = qq(UPDATE listdevs set latestprobe = "$fb1" where ip="$each[0]" AND version="$each[3]";);
+					my $tid1 = "latestProbe_$wanted";
+					my $stmt = qq(UPDATE listdevs set latestprobe = "$tid1" where ip="$each[0]" AND version="$each[3]";);
 					my $rv = $dbh->do($stmt) or die $DBI::errstr;
 
 					if( $rv < 0 ) {
@@ -79,7 +79,7 @@ while(2<3){
 			      
 			}
 
-			my $bd = new SNMP::Info ( 
+			my $bridge = new SNMP::Info ( 
 						    AutoSpecify => 1,
 						    Debug       => 1,
 						    DestHost    => "$each[0]",
@@ -98,25 +98,25 @@ while(2<3){
 				if( $rv < 0 ) {
 					print $DBI::errstr;
 				}
-				my $interfaces = $bd->interfaces();
+				my $interfaces = $bridge->interfaces();
 
-				my $mac_f     = $bd->mac_f();
+				my $mac_f     = $bridge->mac_f();
 
-				my $port_f    = $bd->port_f();
+				my $port_f    = $bridge->port_f();
 
-				my $index_bd   = $bd->index_bd();
+				my $index_bd   = $bridge->index_bd();
 
 
-				my $vlan = $bd->qb_i_vlan();
+				my $vlan = $bridge->qb_i_vlan();
 
 				foreach my $index_f (keys %$mac_f){
 					   my $mac   = $mac_f->{$index_f};
-					   my $id = $port_f->{$index_f};
-					   my $iid   = $index_bd->{$id};
+					   my $bp_id = $port_f->{$index_f};
+					   my $iid   = $index_bd->{$bp_id};
 					   my $port  = $interfaces->{$iid};
-					   my $vl_id= $vlan->{$iid};
-					   if(!$vl_id){
-					   	    $vl_id = 1;
+					   my $vlan_id= $vlan->{$iid};
+					   if(!$vlan_id){
+					   	    $vlan_id = 1;
 						}
 					my $stmt = qq(CREATE TABLE IF NOT EXISTS list(ip TEXT NOT NULL,vlan TEXT NOT NULL,port TEXT,macs TEXT););
 
@@ -125,7 +125,7 @@ while(2<3){
 					   	print $DBI::errstr;
 					} 
 					
-				    my $stmt = qq(INSERT INTO list (ip,vlan,port,macs) VALUES ('$each[0]', 'VLAN$vlan_id',  'Port$port', '$mac'););
+				    
 					my $x =0;
 					my $stmt = qq(SELECT * from list;);
 					my $sth = $dbh->prepare( $stmt );
@@ -134,7 +134,7 @@ while(2<3){
 					if($rv < 0) {
 					   print $DBI::errstr;
 					}
-					while(my @row = $sth->getrow_array()) {
+					while(my @row = $sth->fetchrow_array()) {
 					      	
 						if($row[0] eq "$each[0]" and $row[1] eq "VLAN$vlan_id" and $row[2] eq "Port$port" and $row[3] eq "$mac"){
 							$x = $x +1;
@@ -150,7 +150,7 @@ while(2<3){
 						if($rv < 0) {
 						   print $DBI::errstr;
 						}
-						while(my @row = $sth->gethrow_array()) {
+						while(my @row = $sth->fetchrow_array()) {
 							if($row[0] eq "$each[0]" and $row[1] eq "VLAN$vlan_id" and $row[2] eq "Port$port"){
 							$y = $y +1;
 							}
@@ -168,7 +168,7 @@ while(2<3){
 							   print $DBI::errstr;
 							}
 							$z =0;
-							while(my @row = $sth->getrow_array()) {
+							while(my @row = $sth->fetchrow_array()) {
 								if (index($row[3], $mac) == -1) {
     								$mac = "$mac $row[3]" ;
 									$z = $z+1;
@@ -192,7 +192,7 @@ while(2<3){
 				if($rv < 0) {
 				   	$DBI::errstr;
 				}
-				while(my @row = $sth->getrow_array()) {
+				while(my @row = $sth->fetchrow_array()) {
 					if ($row[7] eq '') {
 						$a = 1;
 					}
