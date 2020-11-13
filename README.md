@@ -3,7 +3,7 @@ done by probing the network switches periodically, and retrieving their forwardi
 search for a specific mac addres. If its a match, it should return switches, vlans and ports on the MAC address and 
 identify the connection port.
 
-This project consists of following files.
+This project consists of following files:-
 
 1. addDevice.php
 2. removeDevice.php
@@ -11,4 +11,4 @@ This project consists of following files.
 4. list.php
 5. listDevs.php
 6. config.php
-7. backend.txt
+7. backend
