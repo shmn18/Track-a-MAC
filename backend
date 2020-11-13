@@ -5,12 +5,12 @@ from sqlite3 import Error
 import sqlite3
 import time
 import datetime
-import math
+import math 
 
 
-vl = 'def_vlan(1)'
+VL = 'DEFAULT_VLAN(1)'
 
-def probe_dev(ip, port, community, version, conn):
+def probe_device(ip, port, community, version, conn):
 	oids = {'dot1dTpFdbEntryAddress':'1.3.6.1.2.1.17.4.3.1.1',
 			'dot1dTpFdbEntryPort':'1.3.6.1.2.1.17.4.3.1.2',
 			'dot1qTpFdbEntryStatus':'1.3.6.1.2.1.17.4.3.1.3',
@@ -26,76 +26,76 @@ def probe_dev(ip, port, community, version, conn):
 		session = Session(hostname=ip, remote_port=port, version=version, community=community)
 	except Exception as e:
 		print(e)
-		fail_attem = conn.execute("SELECT FAIL_ATTEM from info where IP=?, PORT=?",(ip,port))
-		fail_attem += 1
-		conn.execute("UPDATE info set FAIL_ATTEM=? where (IP=? and PORT=?)",(fail_attem,ip,port))
+		failed_attempts = conn.execute("SELECT FAILED_ATTEMPTS from info where IP=?, PORT=?",(ip,port))
+		failed_attempts = failed_attempts + 1
+		conn.execute("UPDATE info set FAILED_ATTEMPTS=? where (IP=? and PORT=?)",(failed_attempts,ip,port))
 		conn.commit()
-	start_time = str(datetime.datetime.now())
+	starting_time = str(datetime.datetime.now())
 	try:
-		mac_add = session.walk(oids['dot1dTpFdbEntryAddress'])
-		port_info = session.walk(oids['dot1dTpFdbEntryPort'])
-		for k,n in zip(mac_add, port_info):
-			oid = k.oid;
-			oid_index_place = k.oid_index;
-			snmp_type=k.snmp_type;
-			mac = ':'.join('{:02x}'.format(ord(a)) for a in k.value)
-			port_no = n.value
+		mac_address = session.walk(oids['dot1dTpFdbEntryAddress'])
+		port_details = session.walk(oids['dot1dTpFdbEntryPort'])
+		for i,j in zip(mac_address, port_details):
+			oid = i.oid;
+			oid_index_place = i.oid_index;
+			snmp_type=i.snmp_type;
+			mac = ':'.join('{:02x}'.format(ord(a)) for a in i.value)
+			port_value = j.value
 		  
-			data = conn.execute("SELECT * from List where (PORT=? and IP=?)",(port_no,ip))
-			gather_data = data.fetchall()
-			for mac_add_connection in gather_data:
-				k = mac_add_connection[3]
-			if len(gather_data) == 0:
-				conn.execute('''INSERT INTO List(IP, VLANs, PORT, MACS) values (?,?,?,?)''',(ip,vl,port_no,mac))
+			information = conn.execute("SELECT * from List where (PORT=? and IP=?)",(port_value,ip))
+			gather_information = information.fetchall()
+			for mac_address_connection in gather_information:
+				i = mac_address_connection[3]
+			if len(gather_information) == 0:
+				conn.execute('''INSERT INTO List(IP, VLANs, PORT, MACS) values (?,?,?,?)''',(ip,VL,port_value,mac))
 				conn.commit()
-			elif len(gather_data) == 1 and k.find(mac) == -1:
-				mac_res = k + "," + mac
-				conn.execute("UPDATE List set MACS=? where PORT=?",(mac_res,port_no))
+			elif len(gather_information) == 1 and i.find(mac) == -1:
+				mac_result = i + "," + mac
+				conn.execute("UPDATE List set MACS=? where PORT=?",(mac_result,port_value))
 				conn.commit()
-		no_of_vlan = []
-		name_vlan = []
+		number_of_vlan = []
+		name_of_vlan = []
 		vlans = session.walk(oids['vlans'])
-		index_vlan = session.walk(oids['dot1qVlanStaticName'])
-		stor_values = []
-		oids_vlan = []
-		for index, vlan in zip(index_vlan, vlans):
+		index_of_vlan = session.walk(oids['dot1qVlanStaticName'])
+		storing_values = []
+		oids_of_vlan = []
+		for index, vlan in zip(index_of_vlan, vlans):
 			value = ':'.join('{:02x}'.format(ord(x)) for x in vlan.value)
-			stor_values = value.split(':')
+			storing_values = value.split(':')
 			oid = vlan.oid
-			oids_vlan.append(oid)
-			name_vlan = index.value
-			count_vlan = oid.split('.')
-			number_vlan = str(count_vlan[-1])
-			join = ''
-			if name_vlan != vl :
-				start=0
-				while start < (len(stor_values)):
-					list_hex = stor_values
-					hexmac = list_hex[start]
+			oids_of_vlan.append(oid)
+			vlan_name = index.value
+			count_of_vlan = oid.split('.')
+			num_of_vlan = str(count_of_vlan[-1])
+			combine = ''
+			if vlan_name != VL :
+				starting=0
+				while starting < (len(storing_values)):
+					hexlist = storing_values
+					mac_hex = hexlist[starting]
 					scale = 16
-					no_of_bits = 8
-					hex_org = bin(int(hexmac, scale))[2:].zfill(no_of_bits)
-					join += str(hex_org)
-					hex_org = ''
-					vlans_list = list(join)
-					start =start+1
+					number_of_bits = 8
+					orghex = bin(int(mac_hex, scale))[2:].zfill(number_of_bits)
+					combine = combine + str(orghex)
+					orghex = ''
+					listvls = list(combine)
+					starting =starting+1
 				another=0
-				for i in range(len(vlans_list)):
-					if vlans_list[i] == '1':
-						num = i + 1
-						name_vlan.append(str(name_vlan) + '(' + number_vlan + ')')
-						no_of_vlan.append(num)
-		res_f=0
-		while res_f < (len(no_of_vlan)):
-			vlan_port = '1'
-			conn.execute("UPDATE List set VLANs = ? where PORT=?", (name_vlan[res_f],no_of_vlan[res_f]))
+				for k in range(len(listvls)):
+					if listvls[k] == '1':
+						num = k + 1
+						name_of_vlan.append(str(vlan_name) + '(' + num_of_vlan + ')')
+						number_of_vlan.append(num)
+		final_result=0
+		while final_result < (len(number_of_vlan)):
+			portlan = '1'
+			conn.execute("UPDATE List set VLANs = ? where PORT=?", (name_of_vlan[final_result],number_of_vlan[final_result]))
 			conn.commit()
-			res_f += 1
+			final_result+=1
 	except Exception as e:
 		print(str(e)+' '+str(ip)+":"+str(port))
-	last_time = str(datetime.datetime.now())
+	finish_time = str(datetime.datetime.now())
 
-	conn.execute("UPDATE info set FIRST_PROBE=?, LATEST_PROBE=? where (IP=? and PORT=?)",(start_time, last_time, ip, port))
+	conn.execute("UPDATE info set FIRST_PROBE=?, LATEST_PROBE=? where (IP=? and PORT=?)",(starting_time, finish_time, ip, port))
 	conn.commit()
 
 
@@ -107,8 +107,9 @@ while True:
 		information = conn.execute('Select * from info')
 		for items in information:
 			ip = items[0]; port=int(items[1]); community=items[2]; version=int(items[3])
-			probe_dev(ip, port, community,version, conn)
+			probe_device(ip, port, community,version, conn)
 
 		conn.close()
 
 	time.sleep(60)
+
