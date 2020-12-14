@@ -1,21 +1,36 @@
-
 <?php
-class data_base extends SQLite3 {
+   class MyDB extends SQLite3 {
       function __construct() {
-         $this->open('mydatabase.db');
+         $this->open('Probed_Database.sqlite3');
       }
-}
-$db = new data_base();
-
-
-$res = $db->exec('CREATE TABLE IF NOT EXISTS List(IP varchar not null, VLANs varchar not null, PORT varchar, MACS varchar)');
-if(!$res){
-   echo $db->lastErrorMsg(); #Error for SQL fail 
-}
-
-$res = $db->exec('CREATE TABLE IF NOT EXISTS info(IP varchar not null,PORT varchar not null,COMMUNITY string not null ,VERSION varchar not null, FIRST_PROBE varchar, LATEST_PROBE varchar null, FAILED_ATTEMPTS int default 0 not null)');
-   if(!$res){
-      echo $db->lastErrorMsg();
    }
+ $db = new MyDB();
+ if(!$db) {
+    echo $db->lastErrorMsg();
+ }else {
+    echo "Created database successfully\n";
+ }
 
-?>
+
+$sq1 =<<<EOF
+
+   CREATE TABLE IF NOT EXISTS List(ip varchar not null,VLANS varchar not null,port varchar,MACS  varchar);
+EOF;
+$ret = $db->exec($sq1);
+if(!$ret){
+  echo $db->lastErrorMsg();
+}
+$sql =<<<EOF
+
+     CREATE TABLE IF NOT EXISTS Listdevs(ip varchar not null,port varchar not null,community string not null,version varchar not null,First_probetime varchar null,Latest_probetime varchar null,Failed_attempts int default 0 not null);
+
+EOF;
+
+
+   $ret1 = $db->exec($sql);
+
+   if(!$ret1){
+
+      echo $db->lastErrorMsg();
+
+   }
