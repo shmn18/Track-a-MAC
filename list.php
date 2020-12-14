@@ -1,12 +1,15 @@
 <?php
+  include('config.php');
+ 
+   $sql =<<<EOF
+      SELECT * from List;
+EOF;
 
-include('config.php');
-
-$result = $db->query('SELECT * FROM List');
-
-while($row = $result->fetchArray(SQLITE3_ASSOC) ) {
-	echo  $row['IP']. "|" .$row['VLANs']. "|" .$row['PORT']. "|" .$row['MACS']. "\n";
-}
-$db->close();
-
+   $result = $db->query($sql);
+   while($row = $result->fetchArray(SQLITE3_ASSOC) ) {
+      echo $row['ip'] . '|' . $row['VLANS'] . '|' . $row['port'] . '|' . $row['MACS'] . "\n";
+   }
+   
+   $db->close();
 ?>
+
