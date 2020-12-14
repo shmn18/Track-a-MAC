@@ -24,6 +24,12 @@ if ($count ==0){
      }
 }
 
+$result = array_unique($data);
+total = count($result);
+for($i = 0; $i < $len; $i++){
+	echo $result[$i]. "\n";
+	}
+
 }
 $db->close();
 
