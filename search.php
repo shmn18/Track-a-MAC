@@ -1,38 +1,37 @@
 <?php
+
 include_once('config.php');
 
 if (empty($_GET)) {
     echo "FALSE";
     }
 else {
-    $mac_addr = htmlspecialchars($_GET["mac"]);
+    $addr = htmlspecialchars($_GET["mac"]);
     $sql = <<<EOF
-              SELECT * FROM list WHERE MACS LIKE "%$mac_addr%";
+              SELECT * FROM List WHERE MACS LIKE "%$addr%" ORDER BY MACS;
 EOF;
-    $result1 = $db->query($sql);
-    $data = array(); 
-    while($row = $result1->fetchArray(SQLITE3_ASSOC) ){
-         $data[] = $row['ip'] . '|' . $row['VLANS'] . '|' . $row['port'] . '|' . $row['MACS'] . "\n";
+    $find = $database->query($sql);
+    $arr = array(); 
+    while($row = $find->fetchArray(SQLITE3_ASSOC) ){
+         $arr[] = $row['Device']. " | " . $row['VLANS'] . " | " . $row['port'] . " | " . "$addr";
      
     }
 
-$count = count($data);
-if ($count ==0){
-    $result2 = $db->query('SELECT count(*) FROM listDevs');
-    while($row1 = $result2->fetchArray(SQLITE3_ASSOC)) {
+$totnum = count($arr);
+if ($totnum ==0){
+    $count = $database->query('SELECT count(*) FROM switches');
+    while($row1 = $count->fetchArray(SQLITE3_ASSOC)) {
         $noDevices = $row1['count(*)'];
         echo "Not Found in $noDevices devices"."\n";
      }
 }
 
-$result = array_unique($data);
-$total = count($result);
-$i=0;
-while($i<$total){
-    echo $result[$i]. "\n";
-    $i++;
+$res = array_unique($arr);
+$len = count($res);
+for($i = 0; $i < $len; $i++){
+    echo $res[$i]. "\n";
     }
 }
-$db->close();
+$database->close();
 
 ?>

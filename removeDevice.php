@@ -1,4 +1,5 @@
 <?php
+
 include_once('config.php');
 
 $ip = $_GET['ip'];
@@ -7,17 +8,19 @@ $community = $_GET['community'];
 $version = $_GET['version'];
 
 if(empty($ip) || empty($port)||empty($community) || empty($version)) {
-	echo "FALSE";
+    echo "FALSE";
 }
-else {		
-	$remove = $db->exec("DELETE FROM listDevs WHERE ip='$ip' AND port='$port' AND community='$community' AND version='$version'");
-	if(!$remove) {
-		echo "false";
-	}
-	else {
-		echo "ok";
-	}	
+
+else {
+    $remove = $database->exec("DELETE FROM switches WHERE ip='$ip' AND port='$port'AND community='$community' AND version='$version'");
+    if(!$remove){
+        echo "FALSE";
+    }
+    else {
+        echo "OK";
+    }
 }
-$db->close();
+
+$database->close();
 
 ?>
