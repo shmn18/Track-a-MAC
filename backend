@@ -107,9 +107,6 @@ def probe_device(ip, port, community, version, connection):
 
 if  __name__=='__main__':
 	while True:
-		try:
-            		create_connection('Probed_Database.sqlite3')
-            		time.sleep(60)
-		except KeyboardInterrupt:
-			break
+		create_connection('Probed_Database.sqlite3')
+		time.sleep(60)
 
