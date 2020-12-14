@@ -1,5 +1,5 @@
 <?php
-  include('config.php');
+include_once('config.php');
 
 if (empty($_GET)) {
     echo "FALSE";
@@ -10,12 +10,13 @@ else {
               SELECT * FROM List WHERE MACS LIKE "%$mac_addr%";
 EOF;
     $result1 = $db->query($sql);
+    $data = array(); 
     while($row = $result1->fetchArray(SQLITE3_ASSOC) ){
-         $var = echo $row['ip'] . '|' . $row['VLANS'] . '|' . $row['port'] . '|' . $row['MACS'] . "\n";
+         $data[] = $row['ip'] . '|' . $row['VLANS'] . '|' . $row['port'] . '|' . $row['MACS'] . "\n";
      
     }
 
-$count = count($var);
+$count = count($data);
 if ($count ==0){
     $result2 = $db->query('SELECT count(*) FROM Listdevs');
     while($row1 = $result2->fetchArray(SQLITE3_ASSOC)) {
@@ -25,13 +26,13 @@ if ($count ==0){
 }
 
 $result = array_unique($data);
-total = count($result);
-for($i = 0; $i < $len; $i++){
-	echo $result[$i]. "\n";
-	}
-
+$total = count($result);
+$i=0;
+while($i<$total){
+    echo $result[$i]. "\n";
+    $i++;
+    }
 }
 $db->close();
 
 ?>
-
