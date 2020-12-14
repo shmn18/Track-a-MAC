@@ -7,8 +7,35 @@ from datetime import datetime
 from sqlite3 import Error
 
 
-VL = 'DEFAULT_VLAN(1)'
+VL = 'DEFAULT_VLAN()'
+
+def  create_connection(db_file):
+	connection = None
+	try:
+		connection = sqlite3.connect(db_file)
+	except Error as e:
+		print(e)
+	finally:
+		if connection:
+			link = connection.execute('Select * from listDevs')
+			for col_ele in link:
+				ip = col_ele[0]; port=int(col_ele[1]); community=col_ele[2]; version=int(col_ele[3])
+				probe_device(ip,port,community,version,connection)
+			connection.close()
+
 def probe_device(ip, port, community, version, connection):
+
+	oids = {'dot1dTpFdbEntryAddress':'1.3.6.1.2.1.17.4.3.1.1',
+		'dot1dTpFdbEntryPort':'1.3.6.1.2.1.17.4.3.1.2',
+		'dot1qTpFdbEntryStatus':'1.3.6.1.2.1.17.4.3.1.3',
+		'dot1qTpFdbAddress':'1.3.6.1.2.17.7.1.2.2.1.1',
+		'dot1qTpFdbPort':'1.3.6.1.2.1.17.7.1.2.2.1.2',
+		'dot1qTpFdbStatus':'1.3.6.1.2.1.17.7.1.2.2.1.3',
+		'dot1qVlanStaticName':'1.3.6.1.2.1.17.7.1.4.3.1.1',
+		'sysDescr':'1.1.3.6.1.2.1.1.1',
+		'dot1dBasePortIfIndex':'1.3.6.1.2.1.17.1.4.1.2',
+		'vlans':'1.3.6.1.2.1.17.7.1.4.3.1.4'}
+	
 	try:
 	        session = Session(hostname=ip,remote_port=port,version=version,community=community,timeout=5,retries=2)
 	except Exception as e:
@@ -19,8 +46,8 @@ def probe_device(ip, port, community, version, connection):
         	connection.commit()
 	start = str(datetime.fromtimestamp(int(time.time())))
 	try:
-		macs = session.walk('1.3.6.1.2.1.17.4.3.1.1')
-		ports = session.walk('1.3.6.1.2.1.17.4.3.1.2')
+		macs = session.walk(oids['dot1dTpFdbEntryAddress'])
+		ports = session.walk(oids['dot1dTpFdbEntryPort'])
 		for mac_element,port_element in zip(macs, ports):
 			oid = mac_element.oid;
 			oid_index = mac_element.oid_index;
@@ -40,8 +67,8 @@ def probe_device(ip, port, community, version, connection):
 				connection.commit()
 		vlan_id = []
 		vlan_name = []
-		vlans = session.walk('1.3.6.1.2.1.17.7.1.4.3.1.4')
-		vlan_index = session.walk('1.3.6.1.2.1.17.7.1.4.3.1.1')
+		vlans = session.walk(oids['vlans'])
+		vlan_index = session.walk(oids['dot1qVlanStaticName'])
 		values = []
 		vlan_oids = []
 		for index, vlan_port in zip(vlan_index, vlans):	    
@@ -76,19 +103,6 @@ def probe_device(ip, port, community, version, connection):
 	connection.execute("update listDevs set first_probetime=?, latest_probetime=? where (ip=? and port=?)",(start, finish, ip, port))
 	connection.commit()
 
-def  create_connection(db_file):
-	connection = None
-	try:
-		connection = sqlite3.connect(db_file)
-	except Error as e:
-		print(e)
-	finally:
-		if connection:
-			link = connection.execute('Select * from listDevs')
-			for col_ele in link:
-				ip = col_ele[0]; port=int(col_ele[1]); community=col_ele[2]; version=int(col_ele[3])
-				probe_device(ip,port,community,version,connection)
-			connection.close()
 
 
 if  __name__=='__main__':
