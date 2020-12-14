@@ -13,9 +13,9 @@ def probe_device(ip, port, community, version, connection):
 	        session = Session(hostname=ip,remote_port=port,version=version,community=community,timeout=5,retries=2)
 	except Exception as e:
         	print(e)
-        	failed_attempts = connection.execute("select failed_attempts from Listdevs where ip=?, port=?",(ip,port))
+        	failed_attempts = connection.execute("select failed_attempts from listDevs where ip=?, port=?",(ip,port))
         	failed_attempts += 1
-       		connection.execute("update Listdevs set failed_attempts=? where (ip=? and port=?)",(failed_attempts,ip,port))
+       		connection.execute("update listDevs set failed_attempts=? where (ip=? and port=?)",(failed_attempts,ip,port))
         	connection.commit()
 	start = str(datetime.fromtimestamp(int(time.time())))
 	try:
@@ -27,16 +27,16 @@ def probe_device(ip, port, community, version, connection):
 			snmp_type=mac_element.snmp_type
 			mac = ':'.join('{:02x}'.format(ord(i)) for i in mac_element.value) 
 			port_num = port_element.value
-			update = connection.execute("SELECT * from List where (port=? and ip=?)",(port_num,ip))
+			update = connection.execute("SELECT * from list where (port=? and ip=?)",(port_num,ip))
 			updated = update.fetchall()
 			for connected_macs in updated:
 				mac_element = connected_macs[3]
 			if len(updated)==0:
-				connection.execute('''INSERT INTO List(ip, VLANS, port, MACS) values (?,?,?,?)''',(ip,VL,port_num,mac))
+				connection.execute('''INSERT INTO list(ip, VLANS, port, MACS) values (?,?,?,?)''',(ip,VL,port_num,mac))
 				connection.commit()
 			elif len(updated)==1 and mac_element.find(mac)==-1:
 				mac_address = mac_element+","+mac
-				connection.execute("UPDATE List set MACS=? where port=?",(mac_address,port_num))
+				connection.execute("UPDATE list set MACS=? where port=?",(mac_address,port_num))
 				connection.commit()
 		vlan_id = []
 		vlan_name = []
@@ -68,12 +68,12 @@ def probe_device(ip, port, community, version, connection):
 						vlan_id.append(num)
 		for i in range(len(vlan_id)):
 			portlan = '1'
-			connection.execute("update List set VLANS = ? where port=?", (vlan_name[i],vlan_id[i]))
+			connection.execute("update list set VLANS = ? where port=?", (vlan_name[i],vlan_id[i]))
 			connection.commit()
 	except Exception as e:
 		print(str(e)+' '+str(ip)+":"+str(port))
 	finish = str(datetime.fromtimestamp(int(time.time())))
-	connection.execute("update Listdevs set first_probetime=?, latest_probetime=? where (ip=? and port=?)",(start, finish, ip, port))
+	connection.execute("update listDevs set first_probetime=?, latest_probetime=? where (ip=? and port=?)",(start, finish, ip, port))
 	connection.commit()
 
 def  create_connection(db_file):
@@ -84,7 +84,7 @@ def  create_connection(db_file):
 		print(e)
 	finally:
 		if connection:
-			link = connection.execute('Select * from Listdevs')
+			link = connection.execute('Select * from listDevs')
 			for col_ele in link:
 				ip = col_ele[0]; port=int(col_ele[1]); community=col_ele[2]; version=int(col_ele[3])
 				probe_device(ip,port,community,version,connection)

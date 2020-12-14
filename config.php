@@ -14,7 +14,7 @@
 
 $sq1 =<<<EOF
 
-   CREATE TABLE IF NOT EXISTS List(ip varchar not null,VLANS varchar not null,port varchar,MACS  varchar);
+   CREATE TABLE IF NOT EXISTS list(ip varchar not null,VLANS varchar not null,port varchar,MACS  varchar);
 EOF;
 $ret = $db->exec($sq1);
 if(!$ret){
@@ -22,7 +22,7 @@ if(!$ret){
 }
 $sql =<<<EOF
 
-     CREATE TABLE IF NOT EXISTS Listdevs(ip varchar not null,port varchar not null,community string not null,version varchar not null,First_probetime varchar null,Latest_probetime varchar null,Failed_attempts int default 0 not null);
+     CREATE TABLE IF NOT EXISTS listDevs(ip varchar not null,port varchar not null,community string not null,version varchar not null,First_probetime varchar null,Latest_probetime varchar null,Failed_attempts int default 0 not null);
 
 EOF;
 
@@ -34,3 +34,5 @@ EOF;
       echo $db->lastErrorMsg();
 
    }
+
+?>

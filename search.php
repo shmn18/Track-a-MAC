@@ -7,7 +7,7 @@ if (empty($_GET)) {
 else {
     $mac_addr = htmlspecialchars($_GET["mac"]);
     $sql = <<<EOF
-              SELECT * FROM List WHERE MACS LIKE "%$mac_addr%";
+              SELECT * FROM list WHERE MACS LIKE "%$mac_addr%";
 EOF;
     $result1 = $db->query($sql);
     $data = array(); 
@@ -18,7 +18,7 @@ EOF;
 
 $count = count($data);
 if ($count ==0){
-    $result2 = $db->query('SELECT count(*) FROM Listdevs');
+    $result2 = $db->query('SELECT count(*) FROM listDevs');
     while($row1 = $result2->fetchArray(SQLITE3_ASSOC)) {
         $noDevices = $row1['count(*)'];
         echo "Not Found in $noDevices devices"."\n";

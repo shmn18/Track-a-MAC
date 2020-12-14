@@ -1,4 +1,3 @@
-#!/usr/bin/php
 <?php
 
 include_once('config.php');
@@ -14,7 +13,7 @@ if(empty($ip) || empty($port)||empty($community) || empty($version)) {
 
 
 else{		
-	$db->exec("INSERT INTO LISTDEVS (ip,port,community,version) VALUES ('$ip','$port','$community','$version')");
+	$db->exec("INSERT INTO listDevs (ip,port,community,version) VALUES ('$ip','$port','$community','$version')");
 		echo "OK";
 	}
 $db->close();

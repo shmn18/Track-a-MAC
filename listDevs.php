@@ -1,15 +1,23 @@
 <?php
-  include_once('config.php');
-   $sql =<<<EOF
-      SELECT * from Listdevs;
-EOF;
+include_once('config.php');
 
-   $result = $db->query($sql);
-   while($row = $result->fetchArray(SQLITE3_ASSOC) ) {
-     echo $row['ip'] . '|' . $row['port'] . '|' . $row['community'] . '|' . $row['version'] . '|' . $row['First_probetime'] . '|' . $row['Latest_probetime'] . '|' . $row['Failed_attempts'] .  "\n";
-   }
+$res = $db->query('SELECT * FROM listDevs');
+
+
+while ($device_info = $res->fetchArray()) {	
+	echo "\n";
+	echo $device_info[0]. "|" .$device_info[1]. "|" .$device_info[2]. "|" .$device_info[3]. "|" .$device_info[4]. "|" .$device_info[5]. "|" .$device_info[6]."|";
+
+    if (empty($device_info[0]) && empty($device_info[1]) && empty($device_info[2]) && empty($device_info[3]) && empty($device_info[4]) && empty($device_info[5]) &&  empty($device_info[6])){
+    	echo "No MACS";
+
+    }
+
+}
+
 
 $db->close();
 
 ?>
+
 

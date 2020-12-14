@@ -2,7 +2,7 @@
   include('config.php');
  
    $sql =<<<EOF
-      SELECT * from List;
+      SELECT * FROM list;
 EOF;
 
    $result = $db->query($sql);
